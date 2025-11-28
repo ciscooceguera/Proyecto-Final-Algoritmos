@@ -12,8 +12,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -30,6 +34,7 @@ public class Controller {
     @FXML private Button btnSalir;
 
     @FXML private TextArea areaResultados;
+    @FXML private TableView<ObservableList<String>> tablaResultados;
 
     private String[][] matrizDatos;
     private GrafoDirigidoPonderado grafo;
@@ -174,14 +179,17 @@ public class Controller {
             return;
         }
 
+        StringBuilder sb = new StringBuilder();
+        long tiempoInicio = System.nanoTime();
         ResultadoDijkstra r = rec
                 ? Dijkstra.algoritmoRecursivo(grafo, idO)
                 : Dijkstra.algoritmo(grafo, idO);
-
+        long tiempoFin = System.nanoTime();
+        long tiempo = tiempoFin - tiempoInicio;
+        sb.append("Tiempo de ejecucion: " + tiempo/1e9 + "\n");
         double costo = r.getDistanciaA(idD);
         List<String> ruta = r.reconstruirRuta(grafo, idD);
 
-        StringBuilder sb = new StringBuilder();
         sb.append("Algoritmo: ").append(rec ? "Dijkstra Recursivo" : "Dijkstra Iterativo").append("\n");
         sb.append("Origen: ").append(origen).append("\n");
         sb.append("Destino: ").append(destino).append("\n\n");
@@ -228,13 +236,14 @@ public class Controller {
     }
 
     private void ejecutarFloyd() {
+
         if (grafo == null) {
             areaResultados.setText("No se ha generado el grafo.");
             return;
         }
 
         int n = grafo.getSize();
-        int INF = (int) 1e8;
+        int INF = (int)1e8;
         int[][] dist = new int[n][n];
 
         for (int i = 0; i < n; i++) {
@@ -242,19 +251,41 @@ public class Controller {
             dist[i][i] = 0;
 
             for (AristaG a : grafo.getNodo(i).getAristas()) {
-                dist[i][a.getDestino()] = (int) a.getPeso();
+                dist[i][a.getDestino()] = (int)a.getPeso();
             }
         }
+
         FloydWarshall.ejecutarFloydWarshall(dist);
-        StringBuilder sb = new StringBuilder("Matriz Floyd-Warshall:\n\n");
-        for (int i = 0; i < n; i++) {
-            sb.append(grafo.getNodo(i).getNombre()).append(": ");
-            for (int j = 0; j < n; j++) {
-                sb.append(dist[i][j] == INF ? "INF" : dist[i][j]).append("\t");
-            }
-            sb.append("\n");
+        tablaResultados.getColumns().clear();
+        ObservableList<ObservableList<String>> filas = FXCollections.observableArrayList();
+        TableColumn<ObservableList<String>, String> colNodo = new TableColumn<>("Nodo");
+        colNodo.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().get(0)));
+        tablaResultados.getColumns().add(colNodo);
+
+        for (int j = 0; j < n; j++) {
+            final int col = j + 1;
+
+            TableColumn<ObservableList<String>, String> tc =
+                    new TableColumn<>(grafo.getNodo(j).getNombre());
+
+            tc.setCellValueFactory(data ->
+                    new SimpleStringProperty(data.getValue().get(col)));
+
+            tablaResultados.getColumns().add(tc);
         }
-        areaResultados.setText(sb.toString());
+        for (int i = 0; i < n; i++) {
+            ObservableList<String> fila = FXCollections.observableArrayList();
+            fila.add(grafo.getNodo(i).getNombre());
+
+            for (int j = 0; j < n; j++) {
+                fila.add(dist[i][j] == INF ? "INF" : String.valueOf(dist[i][j]));
+            }
+
+            filas.add(fila);
+        }
+
+        tablaResultados.setItems(filas);
+        areaResultados.setText("Resultado de Floyd-Warshall mostrado en tabla.");
     }
 
     private void mostrarArbolEstructura() {
