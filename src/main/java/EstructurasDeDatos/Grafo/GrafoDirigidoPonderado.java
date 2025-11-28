@@ -1,4 +1,4 @@
-package EstructurasDeDatos;
+package EstructurasDeDatos.Grafo;
 
 import java.util.ArrayList;
 import java.util.List;

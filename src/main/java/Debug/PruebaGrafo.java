@@ -1,7 +1,7 @@
 package Debug;
 
-import EstructurasDeDatos.CreadorGrafo;
-import EstructurasDeDatos.GrafoDirigidoPonderado;
+import EstructurasDeDatos.Grafo.CreadorGrafo;
+import EstructurasDeDatos.Grafo.GrafoDirigidoPonderado;
 import LecturaArchivo.CargarArchivo;
 import javafx.application.Application;
 import javafx.stage.Stage;

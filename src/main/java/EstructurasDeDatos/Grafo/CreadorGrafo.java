@@ -1,4 +1,4 @@
-package EstructurasDeDatos;
+package EstructurasDeDatos.Grafo;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

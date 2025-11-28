@@ -1,4 +1,4 @@
-package EstructurasDeDatos;
+package EstructurasDeDatos.Grafo;
 
 public class ListaAdyacencia {
 }
