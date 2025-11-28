@@ -20,5 +20,5 @@ public class PruebaArchivo extends Application {
             }
         }
     }
-
+    //C:\Users\joser\IdeaProjects\Proyecto-Final-Algoritmos\src\main\java\LecturaArchivo
 }
