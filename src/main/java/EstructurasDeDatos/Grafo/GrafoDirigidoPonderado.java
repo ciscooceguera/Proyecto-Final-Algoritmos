@@ -8,6 +8,14 @@ public class GrafoDirigidoPonderado {
     public GrafoDirigidoPonderado() {
         nodos = new ArrayList<NodoG>();
     }
+    public int buscarIdPorNombre(String nombre) {
+        for (NodoG nodo : nodos) {
+            if (nodo.getNombre().equals(nombre)) {
+                return nodo.getId();
+            }
+        }
+        return -1;
+    }
     public int agregarNodo(String nombre) {
         int id = nodos.size();
         nodos.add(new NodoG(id, nombre));
@@ -54,4 +62,5 @@ public class GrafoDirigidoPonderado {
         }
         return sb.toString();
     }
+
 }
