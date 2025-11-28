@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="UI.Controller"
+            prefWidth="1200" prefHeight="750">
+
+    <!-- PANEL SUPERIOR -->
+    <top>
+        <HBox spacing="10" style="-fx-padding: 12; -fx-background-color: #2c3e50;">
+            <children>
+                <Label text="Proyecto Final – Análisis de Grafos y Árboles"
+                       style="-fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold;"/>
+            </children>
+        </HBox>
+    </top>
+
+    <!-- IZQUIERDA – TABLA DEL CSV -->
+    <left>
+        <VBox spacing="10" style="-fx-padding: 10; -fx-background-color: #f4f6f7;">
+            <children>
+                <Label text="Archivo CSV cargado:" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+                <TableView fx:id="tablaArchivo" prefWidth="420" prefHeight="600"/>
+            </children>
+        </VBox>
+    </left>
+
+    <!-- DERECHA – CONTROLES -->
+    <right>
+        <VBox spacing="12" style="-fx-padding: 15; -fx-background-color: #ecf0f1;" prefWidth="300">
+            <children>
+
+                <Button fx:id="btnCargar" text="Cargar Archivo CSV" onAction="#onCargarArchivo"
+                        style="-fx-font-size: 14; -fx-background-color: #3498db; -fx-text-fill: white;"/>
+
+                <Separator/>
+
+                <Label text="Algoritmo:"/>
+                <ComboBox fx:id="comboAlgoritmo" promptText="Selecciona algoritmo"/>
+
+                <Label text="Origen:"/>
+                <ComboBox fx:id="comboOrigen" promptText="Nodo origen"/>
+
+                <Label text="Destino:"/>
+                <ComboBox fx:id="comboDestino" promptText="Nodo destino"/>
+
+                <Button fx:id="btnEjecutar" text="Ejecutar" onAction="#onEjecutar"
+                        style="-fx-background-color:#2ecc71; -fx-text-fill:white; -fx-font-size:15;"/>
+
+                <Separator/>
+
+                <Button fx:id="btnSalir" text="Salir" onAction="#onSalir"
+                        style="-fx-background-color:#e74c3c; -fx-text-fill:white;"/>
+
+            </children>
+        </VBox>
+    </right>
+
+    <!-- PARTE INFERIOR – RESULTADOS -->
+    <bottom>
+        <VBox spacing="8" style="-fx-padding:12; -fx-background-color: #ffffff;">
+            <children>
+                <Label text="Resultados:" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+                <TextArea fx:id="areaResultados" prefRowCount="10" wrapText="true"/>
+            </children>
+        </VBox>
+    </bottom>
+
+</BorderPane>

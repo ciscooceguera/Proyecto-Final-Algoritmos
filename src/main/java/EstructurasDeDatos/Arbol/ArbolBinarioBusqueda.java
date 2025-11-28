@@ -32,38 +32,44 @@ public class ArbolBinarioBusqueda {
             return findAux(nodo.getHijoDer(), valor);
         }
     }
-    public void inOrden(){
-        inOrdenAux(raiz);
+    public String inOrden(){
+        StringBuilder sb = new StringBuilder();
+        inOrdenAux(raiz, sb);
+        return sb.toString();
     }
-    private void inOrdenAux(NodoABB nodo) {
+    private void inOrdenAux(NodoABB nodo, StringBuilder sb) {
         if (nodo == null) {
             return;
         }
-        inOrdenAux(nodo.getHijoIzq());
-        System.out.println(nodo);
-        inOrdenAux(nodo.getHijoDer());
+        inOrdenAux(nodo.getHijoIzq(),sb);
+        sb.append(nodo + "\n");
+        inOrdenAux(nodo.getHijoDer(),sb);
     }
-    public void preOrden(){
-        preOrdenAux(raiz);
+    public String preOrden(){
+        StringBuilder sb = new StringBuilder();
+        preOrdenAux(raiz,sb);
+        return sb.toString();
     }
-    private void preOrdenAux(NodoABB nodo) {
+    private void preOrdenAux(NodoABB nodo,StringBuilder sb) {
         if (nodo == null) {
             return;
         }
-        System.out.println(nodo);
-        preOrdenAux(nodo.getHijoIzq());
-        preOrdenAux(nodo.getHijoDer());
+        sb.append(nodo + "\n");
+        preOrdenAux(nodo.getHijoIzq(), sb);
+        preOrdenAux(nodo.getHijoDer(), sb);
     }
-    public void postOrden(){
-        postOrdenAux(raiz);
+    public String postOrden(){
+        StringBuilder sb = new StringBuilder();
+        postOrdenAux(raiz, sb);
+        return sb.toString();
     }
-    private void postOrdenAux(NodoABB nodo) {
+    private void postOrdenAux(NodoABB nodo,StringBuilder sb) {
         if (nodo == null) {
             return;
         }
-        postOrdenAux(nodo.getHijoIzq());
-        postOrdenAux(nodo.getHijoDer());
-        System.out.println(nodo);
+        postOrdenAux(nodo.getHijoIzq(), sb);
+        postOrdenAux(nodo.getHijoDer(), sb);
+        sb.append(nodo + "\n");
     }
 
     @Override
@@ -73,6 +79,7 @@ public class ArbolBinarioBusqueda {
         printTree(raiz, sb, "", true);
         return sb.toString();
     }
+
 
     private void printTree(NodoABB nodo, StringBuilder sb, String prefijo, boolean esUltimo) {
         if (nodo == null) {

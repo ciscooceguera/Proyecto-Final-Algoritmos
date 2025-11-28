@@ -9,6 +9,7 @@ import java.util.List;
 
 public class CargarArchivo {
     String[][] matrizDatos;
+    String[] encabezados;
     public void abrirArchivo(Stage stage) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Selecciona un archivo CSV");
@@ -29,7 +30,7 @@ public class CargarArchivo {
             boolean esPrimera = true;
             while ((linea = br.readLine()) != null) {
                 if (esPrimera) {
-                    System.out.println("Encabezado: " + linea);
+                    encabezados = linea.split(",");
                     esPrimera = false;
                     continue;
                 }
@@ -48,5 +49,8 @@ public class CargarArchivo {
     }
     public String[][] getMatriz(){
         return matrizDatos;
+    }
+    public String[] getEncabezados(){
+        return encabezados;
     }
 }

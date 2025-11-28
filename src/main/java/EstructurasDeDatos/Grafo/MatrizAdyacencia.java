@@ -37,14 +37,24 @@ public class MatrizAdyacencia {
         return matriz;
     }
 
-    public void imprimir() {
-        System.out.println("\nMatriz de adyacencia:");
+    public String imprimir() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Matriz de adyacencia:\n");
+
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                if (matriz[i][j] == INF) System.out.print("INF ");
-                else System.out.print(matriz[i][j] + " ");
+
+                String valor = (matriz[i][j] == INF)
+                        ? "INF"
+                        : String.valueOf(matriz[i][j]);
+
+                // ancho fijo + tab para que quede alineado
+                sb.append(String.format("%6s\t", valor));
             }
-            System.out.println();
+            sb.append("\n");
         }
+
+        return sb.toString();
     }
+
 }

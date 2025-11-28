@@ -4,19 +4,24 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import java.io.IOException;
 
 public class Main extends Application {
 
     @Override
-    public void start(Stage stage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Menu/menu.fxml"));
-        Scene scene = new Scene(loader.load());
+    public void start(Stage stage) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(
+                    Main.class.getResource("/interfaz.fxml")
+            );
+            Scene scene = new Scene(fxmlLoader.load(), 1366, 768);
 
-        stage.setTitle("Algoritmos");
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
+            stage.setTitle("Algoritmos - Menú");
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {

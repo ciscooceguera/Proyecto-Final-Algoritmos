@@ -1,6 +1,8 @@
 package UI;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -20,6 +22,7 @@ public class MenuController {
     private void initialize() {
         btnEjecutar.setOnAction(e -> {
             System.out.println("Ejecutar");
+            ejecutarInterfaz();
         });
 
         btnCreditos.setOnAction(e -> {
@@ -32,7 +35,24 @@ public class MenuController {
             System.exit(0);
         });
     }
+    @FXML
+    private void ejecutarInterfaz() {
+        try {
 
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfazEjecucion.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) btnEjecutar.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Jugar");
+            stage.setResizable(false);
+            stage.setFullScreen(true);
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     private void mostrarVentanaCreditos() {
         VBox root = crearVentanaBase();
 
