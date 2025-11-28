@@ -3,6 +3,5 @@ module com.example.proyectofinalalgoritmos {
     requires javafx.fxml;
 
 
-    opens com.example.proyectofinalalgoritmos to javafx.fxml;
-    exports com.example.proyectofinalalgoritmos;
+    exports Debug;
 }
